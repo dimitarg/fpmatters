@@ -4,6 +4,8 @@ import fj.F;
 import fj.F2;
 import fj.data.List;
 import static fj.data.List.*;
+
+import static fj.Function.*;
 /**
  * Created by fmap on 21.10.15.
  */
@@ -39,9 +41,8 @@ public class Lists {
 
         //anytrue = foldr (∨) False
         assertThat(
-                list(false,true,false).foldRight( (x,y) -> x || y, false ) == true
+                list(false, true, false).foldRight((x, y) -> x || y, false) == true
         );
-
         assertThat(
                 list(false).foldRight( (x,y) -> x || y, false) == false
         );
@@ -101,6 +102,40 @@ public class Lists {
                         .equals(list(2,4,8))
         );
 
+
+        /*
+         *  and then by
+            f andcons f = Cons . f
+            where “.” (function composition, a standard operator) is defined by
+            (f . g) h = f (g h)
+            We can see that the new definition of f andcons is correct by applying it to some
+            arguments:
+            f andcons f el
+            = (Cons . f ) el
+            = Cons (f el )
+            so
+            f andcons f el list = Cons (f el ) list
+            The final version is
+            doubleall = foldr (Cons . double) Nil
+         */
+        assertThat(
+                list(1, 2, 4).foldRight( compose(cons(), doubleIt), nil() )
+                        .equals(list(2, 4, 8))
+        );
+
+        /*
+            With one further modularization we arrive at
+            doubleall = map double
+            map f = foldr (Cons . f ) Nil
+
+            ,where map — another generally useful function — applies any function f to all
+            the elements of a list.
+         */
+
+        assertThat(
+                list(1, 2, 4).map( doubleIt )
+                        .equals(list(2, 4, 8))
+        );
 
 
 
