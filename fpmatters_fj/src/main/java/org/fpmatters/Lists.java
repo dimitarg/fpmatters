@@ -34,7 +34,10 @@ public class Lists {
         assertThat(sumSpecific(list(1, 2, 3, 4)) == 10);
 
         // sum = foldr (+) 0
-        assertThat(list(1, 2, 3, 4).foldRight((x, y) -> x + y, 0) == 10);
+
+
+        F<List<Integer>, Integer> sum = xs -> xs.foldRight((x,y)->x+y, 0);
+        assertThat(sum.f(list(1, 2, 3, 4))==10);
 
         //product = foldr (∗) 1
         assertThat(list(1, 2, 3, 4).foldRight((x, y) -> x * y, 1) == 24);
@@ -98,7 +101,7 @@ public class Lists {
         F<Integer,Integer> doubleIt = x -> 2*x;
         doubleAndCons = andCons(doubleIt);
         assertThat(
-                list(1,2,4).foldRight(doubleAndCons,nil())
+                list(1,2,4).foldRight(doubleAndCons, nil())
                         .equals(list(2,4,8))
         );
 
@@ -119,7 +122,7 @@ public class Lists {
             doubleall = foldr (Cons . double) Nil
          */
         assertThat(
-                list(1, 2, 4).foldRight( compose(cons(), doubleIt), nil() )
+                list(1, 2, 4).foldRight(compose(cons(), doubleIt), nil())
                         .equals(list(2, 4, 8))
         );
 
@@ -133,11 +136,23 @@ public class Lists {
          */
 
         assertThat(
-                list(1, 2, 4).map( doubleIt )
+                list(1, 2, 4).map(doubleIt)
                         .equals(list(2, 4, 8))
         );
 
+        /*
+            We can even write a function to add all the elements of a matrix, represented
+            as a list of lists. It is
+            summatrix = sum . map sum
 
+            The function map sum uses sum to add up all the rows, and then the leftmost
+            sum adds up the row totals to get the sum of the whole matrix.
+
+         */
+
+        F<List<List<Integer>>, Integer> sumMatrix = compose(sum, (List<List<Integer>> xs) -> xs.map(sum));
+        List<List<Integer>> matrix = list(list(1,2),list(5,6));
+        assertThat(sumMatrix.f(matrix)==14);
 
 
     }
