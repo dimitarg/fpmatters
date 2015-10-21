@@ -5,6 +5,8 @@
 This repo aims to collect translations of the code examples from the paper "Why Functional Programming Matters"
 in various programming languages. Currently we have a Java example - *in progress*.
 
+The intended use is to look at the code while you read the paper, so that you can read it in a language familiar to you. And then experiment with / modify the code to deepen your understanding of what you have learned.
+ 
 ## Why this repository exists
 
 The paper's introduction starts as follows:
