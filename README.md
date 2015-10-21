@@ -3,7 +3,7 @@
 ## Overview
 
 This repo aims to collect translations of the code examples from the paper "Why Functional Programming Matters"
-in various programming languages. Currently we have a Java example.
+in various programming languages. Currently we have a Java example - *in progress*.
 
 ## Why this repository exists
 
@@ -28,4 +28,10 @@ The initial goal is to have a
 
 * Delivered with the help of the excellent FJ library.
 * You need Java 8 and Gradle to compile and run
+
+## Contributing
+Contributions are welcome! I mostly aim at very mainstream languages such as Java and JavaScript. I don't think that such a "translation service" would be very useful to the Scala community, for example (while it certainly will not hurt). As another example, I think that doing it in Haskell would most certainly be a pointless excercise.
+
+Potential Future candidates:
+* C Sharp
 
